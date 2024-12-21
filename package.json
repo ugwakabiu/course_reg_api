@@ -28,6 +28,7 @@
     "bcryptjs": "^2.4.3",
     "convert-units": "^2.3.4",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "express-fileupload": "^1.5.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
