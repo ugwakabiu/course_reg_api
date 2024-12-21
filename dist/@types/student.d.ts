@@ -1,0 +1,21 @@
+export type StudentRecord = {
+    'registration number': string;
+    'first name': string;
+    'last name': string;
+    'other name': string;
+    'date of birth': string;
+    gender: string;
+    'state of origin': string;
+    lga: string;
+    level: string;
+    'Jamb Number': string;
+    nin: string;
+    'Phone Number': string;
+    email: string;
+    program: string;
+    department: string;
+    faculty: string;
+    'duration of course': string;
+    'total fees': string;
+    'academic session': string;
+};
