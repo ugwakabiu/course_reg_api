@@ -1,0 +1,22 @@
+enum Role {
+    admin
+    user
+    developer
+}
+
+model User {
+    id                 String    @id @default(uuid())
+    username           String    @unique
+    password           String
+    role               Role?     @default(user)
+    active             Boolean?  @default(true)
+    token              Int       @default(20)
+    usedToken          Int       @default(0)
+    registeredStudents Student[] @relation(name: "registered-by")
+    printedStudents    Student[] @relation(name: "printed-by")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("users")
+}

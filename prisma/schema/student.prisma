@@ -1,0 +1,57 @@
+enum Gender {
+    male
+    female
+}
+
+enum MaritalStatus {
+    single
+    married
+}
+
+model PersonalInformation {
+    id             String        @id @default(uuid())
+    passport       String?
+    firstName      String
+    lastName       String
+    otherNames     String?
+    dateOfBirth    DateTime
+    gender         Gender
+    disability     String
+    maritalStatus  MaritalStatus
+    email          String        @unique
+    phoneNumber    String
+    NIN            String        @unique
+    state          String
+    lga            String
+    nationality    String        @default("nigeria")
+    contactAddress String
+    studentId      String        @unique
+    candidate      Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+
+    @@map("personalInformations")
+}
+
+model Student {
+    id                 String @id @default(uuid())
+    registrationNumber String @unique
+    level              Int
+    faculty            String @default("education")
+
+    // relations
+    departmentId        String
+    department          Department           @relation(fields: [departmentId], references: [id])
+    PersonalInformation PersonalInformation?
+    registeredCourses   StudentOnCourses[]
+    registeredByUserId  String?
+    registeredBy        User?                @relation(name: "registered-by", fields: [registeredByUserId], references: [id], onDelete: NoAction)
+    printedByUserId     String?
+    printedBy           User?                @relation(name: "printed-by", fields: [printedByUserId], references: [id])
+
+    // timestamp
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("students")
+}

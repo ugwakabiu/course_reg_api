@@ -1,0 +1,60 @@
+model Course {
+    id       String         @id @default(uuid())
+    title    String         @unique
+    code     String         @unique
+    unit     Int
+    level    Int
+    semester Semister
+    category CourseCategory
+
+    // relations
+    students    StudentOnCourses[]
+    departments departmentsOnCourses[]
+
+    // timestamp
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("courses")
+}
+
+enum Semister {
+    first
+    second
+    third
+}
+
+enum CourseCategory {
+    elective
+    core
+}
+
+model departmentsOnCourses {
+    id           String     @id @default(uuid())
+    departmentId String
+    department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+    courseId String
+    course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([departmentId, courseId])
+    @@map("departmentsOnCourses")
+}
+
+model StudentOnCourses {
+    id String @id @default(uuid())
+
+    studentId String
+    student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+    courseId  String
+    course    Course  @relation(fields: [courseId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([courseId, studentId])
+    @@map("studentsOnCourses")
+}

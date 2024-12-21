@@ -1,0 +1,13 @@
+model Config {
+    id    String     @id @default(cuid())
+    key   String     @unique
+    type  ConfigType
+    value String
+}
+
+enum ConfigType {
+    BOOLEAN
+    STRING
+    NUMBER
+    JSON
+}
